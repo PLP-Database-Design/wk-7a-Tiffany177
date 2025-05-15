@@ -61,3 +61,21 @@ Task:
 
 ---
 Good luck 🚀
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerName VARCHAR(100)
+);
+CREATE TABLE OrderDetails (
+    OrderID INT,
+    Product VARCHAR(100),
+    Quantity INT,
+    PRIMARY KEY (OrderID, Product),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+);
+INSERT INTO Orders (OrderID, CustomerName)
+SELECT DISTINCT OrderID, CustomerName
+FROM OrderDetails;
+INSERT INTO OrderDetails (OrderID, Product, Quantity)
+SELECT OrderID, Product, Quantity
+FROM OrderDetails;
